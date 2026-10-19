@@ -31,14 +31,21 @@ class Hotel extends Model
      * @param string $hotelName
      * @return array
      */
-    static public function getHotelListByName(string $hotelName): array
+    static public function getHotelListByName(?string $hotelName = null, $prefectureId = null): array
     {
-        $result = Hotel::where('hotel_name', '=', $hotelName)
-            ->with('prefecture')
-            ->get()
-            ->toArray();
+        $query = Hotel::query()->with('prefecture');
 
-        return $result;
+        if (filled($hotelName)) {
+            $escaped = addcslashes($hotelName, '%_\\');
+            $query->where('hotel_name', 'like', "%{$escaped}%");
+        }
+
+        if (filled($prefectureId)) {
+            $query->where('prefecture_id', $prefectureId);
+        }
+
+        return $query->get()->toArray();
+
     }
 
     /**
@@ -50,5 +57,11 @@ class Hotel extends Model
     protected function serializeDate(\DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'hotel_id', 'hotel_id');
     }
 }

@@ -21,6 +21,7 @@
 
     text-align: left;
     display: inline-block;
+    box-sizing: border-box;
     h3.title {
         font-size: 18px;
         color: gray;
@@ -31,5 +32,60 @@
     a.link {
         color: #0000EE;
         text-decoration: underline;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-menu {
+        float: none;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: solid 1px #808080;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .menu-block {
+        display: block;
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        border: none;
+        padding: 8px 12px;
+
+        h3.title {
+            margin: 0 0 8px;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        li {
+            margin: 0;
+        }
+
+        a.link {
+            display: inline-block;
+            padding: 6px 4px; 
+            font-size: 14px;
+        }
+    }
+}
+
+@media (max-width: 380px) {
+    .menu-block ul { gap: 4px 10px; }
+
+    .menu-block a.link {
+        padding: 8px 2px;
+        font-size: 13px;
     }
 }
